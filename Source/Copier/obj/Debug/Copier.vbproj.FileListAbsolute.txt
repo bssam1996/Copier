@@ -1,0 +1,10 @@
+D:\Bssam's\My Works\Copier\Copier\bin\Debug\Copier.exe
+D:\Bssam's\My Works\Copier\Copier\bin\Debug\Copier.pdb
+D:\Bssam's\My Works\Copier\Copier\bin\Debug\Copier.xml
+D:\Bssam's\My Works\Copier\Copier\obj\Debug\Copier.About.resources
+D:\Bssam's\My Works\Copier\Copier\obj\Debug\Copier.Form1.resources
+D:\Bssam's\My Works\Copier\Copier\obj\Debug\Copier.Resources.resources
+D:\Bssam's\My Works\Copier\Copier\obj\Debug\Copier.vbproj.GenerateResource.Cache
+D:\Bssam's\My Works\Copier\Copier\obj\Debug\Copier.exe
+D:\Bssam's\My Works\Copier\Copier\obj\Debug\Copier.xml
+D:\Bssam's\My Works\Copier\Copier\obj\Debug\Copier.pdb
