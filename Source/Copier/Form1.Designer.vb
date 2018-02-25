@@ -25,25 +25,26 @@ Partial Class Form1
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.DeleteThisItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClearAllToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExportListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ImportListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EndToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.DeleteThisItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ClearAllToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.alwaysontopcheck = New System.Windows.Forms.CheckBox()
         Me.TrackBar1 = New System.Windows.Forms.TrackBar()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.ExportListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ImportListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
-        Me.ContextMenuStrip1.SuspendLayout()
+        Me.CheckForUpdatesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextMenuStrip2.SuspendLayout()
+        Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -60,36 +61,6 @@ Partial Class Form1
         Me.ListBox1.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.ListBox1.Size = New System.Drawing.Size(428, 290)
         Me.ListBox1.TabIndex = 0
-        '
-        'Button1
-        '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(15, 320)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 1
-        Me.Button1.Text = "Copy"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutToolStripMenuItem, Me.EndToolStripMenuItem})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(108, 48)
-        '
-        'AboutToolStripMenuItem
-        '
-        Me.AboutToolStripMenuItem.Image = CType(resources.GetObject("AboutToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
-        Me.AboutToolStripMenuItem.Text = "About"
-        '
-        'EndToolStripMenuItem
-        '
-        Me.EndToolStripMenuItem.Image = CType(resources.GetObject("EndToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.EndToolStripMenuItem.Name = "EndToolStripMenuItem"
-        Me.EndToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
-        Me.EndToolStripMenuItem.Text = "End"
         '
         'ContextMenuStrip2
         '
@@ -110,6 +81,50 @@ Partial Class Form1
         Me.ClearAllToolStripMenuItem.Name = "ClearAllToolStripMenuItem"
         Me.ClearAllToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.ClearAllToolStripMenuItem.Text = "Clear All"
+        '
+        'ExportListToolStripMenuItem
+        '
+        Me.ExportListToolStripMenuItem.Image = CType(resources.GetObject("ExportListToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.ExportListToolStripMenuItem.Name = "ExportListToolStripMenuItem"
+        Me.ExportListToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
+        Me.ExportListToolStripMenuItem.Text = "Export List"
+        '
+        'ImportListToolStripMenuItem
+        '
+        Me.ImportListToolStripMenuItem.Image = CType(resources.GetObject("ImportListToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.ImportListToolStripMenuItem.Name = "ImportListToolStripMenuItem"
+        Me.ImportListToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
+        Me.ImportListToolStripMenuItem.Text = "Import List"
+        '
+        'Button1
+        '
+        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Button1.Location = New System.Drawing.Point(15, 320)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 1
+        Me.Button1.Text = "Copy"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CheckForUpdatesToolStripMenuItem, Me.AboutToolStripMenuItem, Me.EndToolStripMenuItem})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(171, 92)
+        '
+        'AboutToolStripMenuItem
+        '
+        Me.AboutToolStripMenuItem.Image = CType(resources.GetObject("AboutToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.AboutToolStripMenuItem.Text = "About"
+        '
+        'EndToolStripMenuItem
+        '
+        Me.EndToolStripMenuItem.Image = CType(resources.GetObject("EndToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.EndToolStripMenuItem.Name = "EndToolStripMenuItem"
+        Me.EndToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.EndToolStripMenuItem.Text = "End"
         '
         'Label1
         '
@@ -173,20 +188,6 @@ Partial Class Form1
         Me.Label4.TabIndex = 9
         Me.Label4.Text = "100"
         '
-        'ExportListToolStripMenuItem
-        '
-        Me.ExportListToolStripMenuItem.Image = CType(resources.GetObject("ExportListToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.ExportListToolStripMenuItem.Name = "ExportListToolStripMenuItem"
-        Me.ExportListToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
-        Me.ExportListToolStripMenuItem.Text = "Export List"
-        '
-        'ImportListToolStripMenuItem
-        '
-        Me.ImportListToolStripMenuItem.Image = CType(resources.GetObject("ImportListToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.ImportListToolStripMenuItem.Name = "ImportListToolStripMenuItem"
-        Me.ImportListToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
-        Me.ImportListToolStripMenuItem.Text = "Import List"
-        '
         'SaveFileDialog1
         '
         Me.SaveFileDialog1.FileName = "Copier"
@@ -196,6 +197,13 @@ Partial Class Form1
         'OpenFileDialog1
         '
         Me.OpenFileDialog1.Filter = "Text File (*.txt)|*.txt"
+        '
+        'CheckForUpdatesToolStripMenuItem
+        '
+        Me.CheckForUpdatesToolStripMenuItem.Image = CType(resources.GetObject("CheckForUpdatesToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.CheckForUpdatesToolStripMenuItem.Name = "CheckForUpdatesToolStripMenuItem"
+        Me.CheckForUpdatesToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
+        Me.CheckForUpdatesToolStripMenuItem.Text = "Check for updates"
         '
         'Form1
         '
@@ -215,8 +223,8 @@ Partial Class Form1
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Form1"
         Me.Text = "Copier"
-        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ContextMenuStrip2.ResumeLayout(False)
+        Me.ContextMenuStrip1.ResumeLayout(False)
         CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -241,4 +249,5 @@ Partial Class Form1
     Friend WithEvents ImportListToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
+    Friend WithEvents CheckForUpdatesToolStripMenuItem As ToolStripMenuItem
 End Class

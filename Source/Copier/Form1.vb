@@ -164,4 +164,54 @@ Public Class Form1
             MsgBox("There was an error occured while saving" & vbNewLine & "Details :" & vbNewLine & ex.Message, MsgBoxStyle.Critical, "Error")
         End Try
     End Sub
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        '    Try
+        Me.Text = "Copier V" + Application.ProductVersion
+        If Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe") Is Nothing Then
+            Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\", True).CreateSubKey("copier.exe")
+            My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "", """" & Application.ExecutablePath & """")
+            My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "Path", """" & Application.StartupPath & """")
+            My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "3")
+        Else
+            If My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "").ToString = "1" Then
+                System.Threading.Thread.Sleep(2000)
+                Dim location As String = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "", Nothing).ToString
+                location = location.Replace(Chr(34), "")
+                My.Computer.FileSystem.CopyFile(Application.ExecutablePath, location, True)
+                My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "2")
+                Process.Start(location)
+                End
+            ElseIf My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "").ToString = "2" Then
+                System.Threading.Thread.Sleep(2000)
+                System.IO.Directory.Delete(Application.StartupPath + "\update", True)
+                My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "3")
+            Else
+                My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "", """" & Application.ExecutablePath & """")
+                My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "Path", """" & Application.StartupPath & """")
+                My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "3")
+            End If
+        End If
+            '     Catch
+        ' End Try
+    End Sub
+
+    Private Sub CheckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckForUpdatesToolStripMenuItem.Click
+        Try
+            Dim request As System.Net.HttpWebRequest = System.Net.HttpWebRequest.Create("https://raw.githubusercontent.com/bssam1996/Copier/master/Version")
+            Dim response As System.Net.HttpWebResponse = request.GetResponse()
+            Dim sr As System.IO.StreamReader = New System.IO.StreamReader(response.GetResponseStream())
+            Dim newestversion As String = sr.ReadToEnd()
+            Dim currentversion As String = Application.ProductVersion
+            If newestversion.Contains(currentversion) Then
+                MsgBox("You are up to date!")
+            Else
+                If MsgBox("Update Found (Version )" + newestversion + ", would you like to update now?", vbInformation + vbYesNo) = MsgBoxResult.Yes Then
+                    updateform.ShowDialog()
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
 End Class
