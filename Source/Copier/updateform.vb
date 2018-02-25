@@ -13,6 +13,7 @@ Public Class updateform
             MessageBox.Show("Successfully downloaded!", "All OK", MessageBoxButtons.OK, MessageBoxIcon.Information)
             My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "1")
             Process.Start(Application.StartupPath + "\update\copier.exe")
+            BackgroundWorker1.Dispose()
             End
         End If
         Me.ProgressBar1.Value = 0

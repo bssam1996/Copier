@@ -166,34 +166,34 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        '    Try
-        Me.Text = "Copier V" + Application.ProductVersion
-        If Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe") Is Nothing Then
-            Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\", True).CreateSubKey("copier.exe")
-            My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "", """" & Application.ExecutablePath & """")
-            My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "Path", """" & Application.StartupPath & """")
-            My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "3")
-        Else
-            If My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "").ToString = "1" Then
-                System.Threading.Thread.Sleep(2000)
-                Dim location As String = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "", Nothing).ToString
-                location = location.Replace(Chr(34), "")
-                My.Computer.FileSystem.CopyFile(Application.ExecutablePath, location, True)
-                My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "2")
-                Process.Start(location)
-                End
-            ElseIf My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "").ToString = "2" Then
-                System.Threading.Thread.Sleep(2000)
-                System.IO.Directory.Delete(Application.StartupPath + "\update", True)
-                My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "3")
-            Else
+        Try
+            Me.Text = "Copier V" + Application.ProductVersion
+            If Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe") Is Nothing Then
+                Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\", True).CreateSubKey("copier.exe")
                 My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "", """" & Application.ExecutablePath & """")
                 My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "Path", """" & Application.StartupPath & """")
                 My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "3")
+            Else
+                If My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "").ToString = "1" Then
+                    System.Threading.Thread.Sleep(2000)
+                    Dim location As String = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "", Nothing).ToString
+                    location = location.Replace(Chr(34), "")
+                    My.Computer.FileSystem.CopyFile(Application.ExecutablePath, location, True)
+                    My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "2")
+                    Process.Start(location)
+                    End
+                ElseIf My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "").ToString = "2" Then
+                    System.Threading.Thread.Sleep(2000)
+                    System.IO.Directory.Delete(Application.StartupPath + "\update", True)
+                    My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "3")
+                Else
+                    My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "", """" & Application.ExecutablePath & """")
+                    My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "Path", """" & Application.StartupPath & """")
+                    My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\copier.exe", "ulevel", "3")
+                End If
             End If
-        End If
-            '     Catch
-        ' End Try
+        Catch
+        End Try
     End Sub
 
     Private Sub CheckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckForUpdatesToolStripMenuItem.Click
