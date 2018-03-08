@@ -46,7 +46,6 @@ Partial Class Form1
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.checkclipboard = New System.Windows.Forms.CheckBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.ContextMenuStrip2.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -232,15 +231,6 @@ Partial Class Form1
         '
         Me.Timer1.Interval = 200
         '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(97, 308)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 11
-        Me.Button2.Text = "Button2"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -248,7 +238,6 @@ Partial Class Form1
         Me.BackColor = System.Drawing.Color.SkyBlue
         Me.ClientSize = New System.Drawing.Size(452, 380)
         Me.ContextMenuStrip = Me.ContextMenuStrip1
-        Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.checkclipboard)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
@@ -292,5 +281,4 @@ Partial Class Form1
     Friend WithEvents PasteClipboardToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents checkclipboard As CheckBox
     Friend WithEvents Timer1 As Timer
-    Friend WithEvents Button2 As Button
 End Class
