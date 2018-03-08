@@ -191,8 +191,7 @@ Partial Class About
         Me.TextBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.TextBox2.Size = New System.Drawing.Size(301, 325)
         Me.TextBox2.TabIndex = 0
-        Me.TextBox2.Text = "V1.1:-" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- Added shortcut in Run command with the name copier" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- Added Check for u" &
-    "pdates"
+        Me.TextBox2.Text = resources.GetString("TextBox2.Text")
         '
         'About
         '

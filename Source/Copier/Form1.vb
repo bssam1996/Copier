@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+
 Public Class Form1
     Private Sub ListBox1_DragDrop(sender As Object, e As DragEventArgs) Handles ListBox1.DragDrop
         Try
@@ -96,6 +97,7 @@ Public Class Form1
             ClearAllToolStripMenuItem.Enabled = (ListBox1.Items.Count <> 0)
             ExportListToolStripMenuItem.Enabled = (ListBox1.Items.Count <> 0)
             DeleteThisItemToolStripMenuItem.Enabled = (ListBox1.SelectedItems.Count <> 0)
+            PasteClipboardToolStripMenuItem.Enabled = (Clipboard.GetDataObject.GetDataPresent(DataFormats.FileDrop))
         Catch
         End Try
     End Sub
@@ -111,6 +113,13 @@ Public Class Form1
             If ListBox1.Items.Count <> 0 Then
                 ClearAllToolStripMenuItem.PerformClick()
             End If
+        ElseIf e.Modifiers = Keys.Control And e.KeyCode = Keys.V Then
+            Try
+                PasteClipboardToolStripMenuItem.PerformClick()
+            Catch ex As Exception
+                MsgBox("Couldn't paste your clipboard due to following details:-" + vbNewLine + ex.Message, MsgBoxStyle.Critical, "Paste Error")
+            End Try
+
         End If
     End Sub
 
@@ -212,6 +221,51 @@ Public Class Form1
             End If
         Catch ex As Exception
             MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub PasteClipboardToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasteClipboardToolStripMenuItem.Click
+        Try
+            Dim data As IDataObject = Clipboard.GetDataObject
+            If data.GetDataPresent(DataFormats.FileDrop) Then
+                Dim filePaths As String() = CType(data.GetData(DataFormats.FileDrop), String())
+                For i As Integer = 0 To filePaths.Count - 1
+                    If ListBox1.Items.Contains(filePaths(i)) Then
+                        Continue For
+                    End If
+                    If Directory.Exists(filePaths(i)) Then
+                        ListBox1.Items.Add(filePaths(i))
+                    ElseIf File.Exists(filePaths(i)) Then
+                        ListBox1.Items.Add(filePaths(i))
+                    End If
+                Next
+            End If
+        Catch ex As Exception
+            MsgBox("Couldn't paste your clipboard due to following details:-" + vbNewLine + ex.Message, MsgBoxStyle.Critical, "Paste Error")
+        End Try
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles checkclipboard.CheckedChanged
+        Timer1.Enabled = checkclipboard.Checked
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        Try
+            Dim data As IDataObject = Clipboard.GetDataObject
+            If data.GetDataPresent(DataFormats.FileDrop) Then
+                Dim filePaths As String() = CType(data.GetData(DataFormats.FileDrop), String())
+                For i As Integer = 0 To filePaths.Count - 1
+                    If ListBox1.Items.Contains(filePaths(i)) Then
+                        Continue For
+                    End If
+                    If Directory.Exists(filePaths(i)) Then
+                        ListBox1.Items.Add(filePaths(i))
+                    ElseIf File.Exists(filePaths(i)) Then
+                        ListBox1.Items.Add(filePaths(i))
+                    End If
+                Next
+            End If
+        Catch
         End Try
     End Sub
 End Class

@@ -920,6 +920,15 @@
 Basically, you just drag the files/folders into the program and create your list.
 You can save your list and import it later on.</value>
   </data>
+  <data name="TextBox2.Text" xml:space="preserve">
+    <value>V1.2:-
+- Added paste method with Control + V or right click on the list and paste
+- Added Autocatch clipboard
+- Enabled Auto sort in the list
+V1.1:-
+- Added shortcut in Run command with the name copier
+- Added Check for updates</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAYAAAAAAAEAIACXLgIAZgAAAAAAAAABACAAq8oAAP0uAgCAgAAAAQAgACgIAQCo+QIAMDAAAAEA
