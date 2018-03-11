@@ -921,7 +921,10 @@ Basically, you just drag the files/folders into the program and create your list
 You can save your list and import it later on.</value>
   </data>
   <data name="TextBox2.Text" xml:space="preserve">
-    <value>V1.2:-
+    <value>V1.3:-
+- Fixed access denied for standard users when updating.
+- Improved Checking for updates
+V1.2:-
 - Added paste method with Control + V or right click on the list and paste
 - Added Autocatch clipboard
 - Enabled Auto sort in the list
