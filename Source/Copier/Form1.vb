@@ -65,6 +65,7 @@ Public Class Form1
 
     Private Sub DeleteThisItemToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteThisItemToolStripMenuItem.Click
         Try
+            checkclipboard.Checked = False
             For i As Integer = 0 To ListBox1.SelectedItems.Count - 1
                 ListBox1.Items.RemoveAt(ListBox1.SelectedIndices(0))
             Next
@@ -83,6 +84,7 @@ Public Class Form1
 
     Private Sub ClearAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearAllToolStripMenuItem.Click
         Try
+            checkclipboard.Checked = False
             ListBox1.Items.Clear()
             Label1.Text = "Total items to copy: " & ListBox1.Items.Count
             Label2.Text = "Status: Null"
@@ -218,6 +220,17 @@ Public Class Form1
             End If
         Catch
         End Try
+        Try
+            If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\Background\shell\Copier") Is Nothing Or
+                Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\shell\Copier") Is Nothing Or
+                Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\*\shell\Copier") Is Nothing Then
+                AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Text = "Add Copier to right click context menu of windows"
+            Else
+                AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Checked = True
+                AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Text = "Remove Copier to right click context menu of windows"
+            End If
+        Catch
+        End Try
     End Sub
 
     Private Sub CheckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckForUpdatesToolStripMenuItem.Click
@@ -227,11 +240,13 @@ Public Class Form1
                 Dim response As System.Net.HttpWebResponse = request.GetResponse()
                 Dim sr As System.IO.StreamReader = New System.IO.StreamReader(response.GetResponseStream())
                 Dim newestversion As String = sr.ReadToEnd()
+                Dim modnewestversion As String = newestversion.Replace(".", "")
                 Dim currentversion As String = Application.ProductVersion
-                If newestversion <= currentversion Then
+                currentversion = currentversion.Replace(".", "")
+                If Integer.Parse(modnewestversion) <= Integer.Parse(currentversion) Then
                     MsgBox("You are up to date!", MsgBoxStyle.Information, "Version is up to date")
                 Else
-                    If MsgBox("Update Found (Version )" + newestversion + ", would you like to update now?", vbInformation + vbYesNo) = MsgBoxResult.Yes Then
+                    If MsgBox("Update Found Version : " + newestversion + vbNewLine + "Would you like to update now?", vbInformation + vbYesNo) = MsgBoxResult.Yes Then
                         updateform.ShowDialog()
                     End If
                 End If
@@ -255,8 +270,14 @@ Public Class Form1
                     End If
                     If Directory.Exists(filePaths(i)) Then
                         ListBox1.Items.Add(filePaths(i))
+                        Label2.Text = "Status: Changed"
+                        Label2.ForeColor = Color.Blue
+                        Label1.Text = "Total items to copy: " & ListBox1.Items.Count
                     ElseIf File.Exists(filePaths(i)) Then
                         ListBox1.Items.Add(filePaths(i))
+                        Label2.Text = "Status: Changed"
+                        Label2.ForeColor = Color.Blue
+                        Label1.Text = "Total items to copy: " & ListBox1.Items.Count
                     End If
                 Next
             End If
@@ -280,12 +301,74 @@ Public Class Form1
                     End If
                     If Directory.Exists(filePaths(i)) Then
                         ListBox1.Items.Add(filePaths(i))
+                        Label2.Text = "Status: Changed"
+                        Label2.ForeColor = Color.Blue
+                        Label1.Text = "Total items to copy: " & ListBox1.Items.Count
                     ElseIf File.Exists(filePaths(i)) Then
                         ListBox1.Items.Add(filePaths(i))
+                        Label2.Text = "Status: Changed"
+                        Label2.ForeColor = Color.Blue
+                        Label1.Text = "Total items to copy: " & ListBox1.Items.Count
                     End If
                 Next
             End If
         Catch
+        End Try
+    End Sub
+
+    Private Sub AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Click
+        Try
+            If AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Text.Contains("Add") Then
+                'For Windows explorer
+                If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\Background\shell") Is Nothing Then
+                    Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\Background\", True).CreateSubKey("shell")
+                End If
+                If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\Background\shell\Copier") Is Nothing Then
+                    Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\Background\shell\", True).CreateSubKey("Copier")
+                End If
+                If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\Background\shell\Copier\command") Is Nothing Then
+                    Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\Background\shell\Copier\", True).CreateSubKey("command")
+                End If
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Classes\directory\Background\shell\Copier", "", "Open Copier")
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Classes\directory\Background\shell\Copier", "Icon", Application.ExecutablePath)
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Classes\directory\Background\shell\Copier\command", "", Application.ExecutablePath)
+                'For folders
+                If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\shell") Is Nothing Then
+                    Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\", True).CreateSubKey("shell")
+                End If
+                If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\shell\Copier") Is Nothing Then
+                    Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\shell\", True).CreateSubKey("Copier")
+                End If
+                If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\shell\Copier\command") Is Nothing Then
+                    Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\shell\Copier\", True).CreateSubKey("command")
+                End If
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Classes\directory\shell\Copier", "", "Open Copier")
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Classes\directory\shell\Copier", "Icon", Application.ExecutablePath)
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Classes\directory\shell\Copier\command", "", Application.ExecutablePath)
+                'For Files
+                If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\*\shell") Is Nothing Then
+                    Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\*\", True).CreateSubKey("shell")
+                End If
+                If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\*\shell\Copier") Is Nothing Then
+                    Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\*\shell\", True).CreateSubKey("Copier")
+                End If
+                If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\*\shell\Copier\command") Is Nothing Then
+                    Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\*\shell\Copier\", True).CreateSubKey("command")
+                End If
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Classes\*\shell\Copier", "", "Open Copier")
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Classes\*\shell\Copier", "Icon", Application.ExecutablePath)
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Classes\*\shell\Copier\command", "", Application.ExecutablePath)
+                AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Checked = True
+                AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Text = "Remove Copier to right click context menu of windows"
+            Else
+                Microsoft.Win32.Registry.CurrentUser.DeleteSubKeyTree("SOFTWARE\Classes\*\shell\Copier")
+                Microsoft.Win32.Registry.CurrentUser.DeleteSubKeyTree("SOFTWARE\Classes\directory\shell\Copier")
+                Microsoft.Win32.Registry.CurrentUser.DeleteSubKeyTree("SOFTWARE\Classes\directory\Background\shell\Copier")
+                AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Checked = False
+                AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Text = "Add Copier to right click context menu of windows"
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
         End Try
     End Sub
 End Class

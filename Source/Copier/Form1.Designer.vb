@@ -46,6 +46,7 @@ Partial Class Form1
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.checkclipboard = New System.Windows.Forms.CheckBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextMenuStrip2.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -119,29 +120,29 @@ Partial Class Form1
         '
         'ContextMenuStrip1
         '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CheckForUpdatesToolStripMenuItem, Me.AboutToolStripMenuItem, Me.EndToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem, Me.CheckForUpdatesToolStripMenuItem, Me.AboutToolStripMenuItem, Me.EndToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(171, 70)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(344, 114)
         '
         'CheckForUpdatesToolStripMenuItem
         '
         Me.CheckForUpdatesToolStripMenuItem.Image = CType(resources.GetObject("CheckForUpdatesToolStripMenuItem.Image"), System.Drawing.Image)
         Me.CheckForUpdatesToolStripMenuItem.Name = "CheckForUpdatesToolStripMenuItem"
-        Me.CheckForUpdatesToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
+        Me.CheckForUpdatesToolStripMenuItem.Size = New System.Drawing.Size(343, 22)
         Me.CheckForUpdatesToolStripMenuItem.Text = "Check for updates"
         '
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.Image = CType(resources.GetObject("AboutToolStripMenuItem.Image"), System.Drawing.Image)
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(343, 22)
         Me.AboutToolStripMenuItem.Text = "About"
         '
         'EndToolStripMenuItem
         '
         Me.EndToolStripMenuItem.Image = CType(resources.GetObject("EndToolStripMenuItem.Image"), System.Drawing.Image)
         Me.EndToolStripMenuItem.Name = "EndToolStripMenuItem"
-        Me.EndToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
+        Me.EndToolStripMenuItem.Size = New System.Drawing.Size(343, 22)
         Me.EndToolStripMenuItem.Text = "End"
         '
         'Label1
@@ -231,6 +232,12 @@ Partial Class Form1
         '
         Me.Timer1.Interval = 200
         '
+        'AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem
+        '
+        Me.AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Name = "AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem"
+        Me.AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Size = New System.Drawing.Size(343, 22)
+        Me.AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Text = "Add Copier to right click context menu of windows"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -281,4 +288,5 @@ Partial Class Form1
     Friend WithEvents PasteClipboardToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents checkclipboard As CheckBox
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -921,7 +921,12 @@ Basically, you just drag the files/folders into the program and create your list
 You can save your list and import it later on.</value>
   </data>
   <data name="TextBox2.Text" xml:space="preserve">
-    <value>V1.3:-
+    <value>V1.4:-
+- Fixed a bug with checking for updates
+- Automatically unchecking auto check clipboard when deleting or clearing the list
+- Fixed a bug with not updating total items to copy when pasting from clipboard
+- Added an option to add Copier to Right click context menu of windows
+V1.3:-
 - Fixed access denied for standard users when updating.
 - Improved Checking for updates
 V1.2:-
