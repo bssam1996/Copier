@@ -1,6 +1,106 @@
 ﻿Imports System.IO
 
 Public Class Form1
+    Public abort As Boolean
+    Dim d As Double = 0
+    Function GetFolderSize(ByVal DirPath As String, ByVal includeSubFolders As Boolean) As Long
+        Try
+            Dim size As Long = 0
+            Dim diBase As New DirectoryInfo(DirPath)
+            Dim files() As FileInfo
+            If includeSubFolders Then
+                files = diBase.GetFiles("*", SearchOption.AllDirectories)
+            Else
+                files = diBase.GetFiles("*", SearchOption.TopDirectoryOnly)
+            End If
+            Dim ie As IEnumerator = files.GetEnumerator
+            While ie.MoveNext And Not abort
+
+                size += DirectCast(ie.Current, FileInfo).Length
+            End While
+            Return size
+        Catch ex As Exception
+            MsgBox("There was an error occured" & vbNewLine & "Details :" & vbNewLine & ex.Message, MsgBoxStyle.Critical, "Error")
+            Return -1
+        End Try
+    End Function
+    Public Sub manualgetsize()
+        d = 0
+        For Each item In ListBox1.Items
+            If File.Exists(item.ToString) Or Directory.Exists(item.ToString) Then
+                Dim a As Double
+                Dim b As String
+                Dim di As New IO.DirectoryInfo(item.ToString)
+                Dim sdi As New IO.DirectoryInfo(di.ToString)
+                If (Directory.Exists(item.ToString)) Then
+                    b = sdi.ToString
+                    a = GetFolderSize(b, True) / 1024 / 1024
+                ElseIf (File.Exists(item.ToString)) Then
+                    Dim c = My.Computer.FileSystem.GetFileInfo(item.ToString)
+                    a = c.Length / 1024 / 1024
+                End If
+                d += a
+                b = d & " MB"
+                If d > 1000 Then
+                    b = "(" & Format(d / 1024, "Fixed") & "GB)"
+                ElseIf d < 1 Then
+                    b = "(" & Format(d * 1024, "Fixed") & "KB)"
+                End If
+                b = Format(b, "Fixed")
+                Label5.Text = "Total Size: " & b
+            End If
+        Next
+
+    End Sub
+    Public Sub getsize(ByVal path As String)
+        If AutomaticCheckSizeToolStripMenuItem.Checked = True Then
+            Dim a As Double
+            Dim b As String
+            Dim di As New IO.DirectoryInfo(path)
+            Dim sdi As New IO.DirectoryInfo(di.ToString)
+            If (Directory.Exists(path)) Then
+                b = sdi.ToString
+                a = GetFolderSize(b, True) / 1024 / 1024
+            ElseIf (File.Exists(path)) Then
+                Dim c = My.Computer.FileSystem.GetFileInfo(path)
+                a = c.Length / 1024 / 1024
+            End If
+            d += a
+            b = d & " MB"
+            If d > 1000 Then
+                b = "(" & Format(d / 1024, "Fixed") & "GB)"
+            ElseIf d < 1 Then
+                b = "(" & Format(d * 1024, "Fixed") & "KB)"
+            End If
+            b = Format(b, "Fixed")
+            Label5.Text = "Total Size: " & b
+        End If
+    End Sub
+    Public Sub subtractsize(ByVal path As String)
+        If AutomaticCheckSizeToolStripMenuItem.Checked = True Then
+            Dim a As Double
+            Dim b As String
+            Dim di As New IO.DirectoryInfo(path)
+            Dim sdi As New IO.DirectoryInfo(di.ToString)
+            If (Directory.Exists(path)) Then
+                b = sdi.ToString
+                a = GetFolderSize(b, True) / 1024 / 1024
+            ElseIf (File.Exists(path)) Then
+                Dim c = My.Computer.FileSystem.GetFileInfo(path)
+                a = c.Length / 1024 / 1024
+            End If
+            d -= a
+            b = d & " MB"
+            If d > 1000 Then
+                b = "(" & Format(d / 1024, "Fixed") & "GB)"
+            ElseIf d < 1 Then
+                b = "(" & Format(d * 1024, "Fixed") & "KB)"
+            End If
+            b = Format(b, "Fixed")
+            Label5.Text = "Total Size: " & b
+        End If
+    End Sub
+
     Private Sub ListBox1_DragDrop(sender As Object, e As DragEventArgs) Handles ListBox1.DragDrop
         Try
             If e.Data.GetDataPresent(DataFormats.FileDrop) Then
@@ -10,10 +110,9 @@ Public Class Form1
                         MsgBox("Duplicated items are not allowed!" & vbNewLine & "Item is " & filePaths(i), MsgBoxStyle.Critical, "Duplicated item")
                         Continue For
                     End If
-                    If Directory.Exists(filePaths(i)) Then
+                    If Directory.Exists(filePaths(i)) Or File.Exists(File.Exists(filePaths(i))) Then
                         ListBox1.Items.Add(filePaths(i))
-                    ElseIf File.Exists(filePaths(i)) Then
-                        ListBox1.Items.Add(filePaths(i))
+                        getsize(filePaths(i))
                     End If
                 Next
                 Label2.Text = "Status: Changed"
@@ -67,6 +166,9 @@ Public Class Form1
         Try
             checkclipboard.Checked = False
             For i As Integer = 0 To ListBox1.SelectedItems.Count - 1
+                If Directory.Exists(ListBox1.SelectedItems(0).ToString) Or File.Exists(ListBox1.SelectedItems(0).ToString) Then
+                    subtractsize(ListBox1.SelectedItems(0).ToString)
+                End If
                 ListBox1.Items.RemoveAt(ListBox1.SelectedIndices(0))
             Next
             If ListBox1.Items.Count <> 0 Then
@@ -89,6 +191,7 @@ Public Class Form1
             Label1.Text = "Total items to copy: " & ListBox1.Items.Count
             Label2.Text = "Status: Null"
             Label2.ForeColor = Color.Black
+            Label5.Text = "Total Size: 0"
         Catch ex As Exception
             MsgBox("There was an error occured" & vbNewLine & "Details :" & vbNewLine & ex.Message, MsgBoxStyle.Critical, "Error")
         End Try
@@ -162,6 +265,7 @@ Public Class Form1
                 For i As Integer = 0 To lines.Count - 1
                     If Directory.Exists(lines(i)) Or File.Exists(lines(i)) Then
                         ListBox1.Items.Add(lines(i))
+                        getsize(lines(i))
                     Else
                         fault &= "- " & lines(i) & vbNewLine
                     End If
@@ -268,13 +372,9 @@ Public Class Form1
                     If ListBox1.Items.Contains(filePaths(i)) Then
                         Continue For
                     End If
-                    If Directory.Exists(filePaths(i)) Then
+                    If Directory.Exists(filePaths(i)) Or File.Exists(filePaths(i)) Then
                         ListBox1.Items.Add(filePaths(i))
-                        Label2.Text = "Status: Changed"
-                        Label2.ForeColor = Color.Blue
-                        Label1.Text = "Total items to copy: " & ListBox1.Items.Count
-                    ElseIf File.Exists(filePaths(i)) Then
-                        ListBox1.Items.Add(filePaths(i))
+                        getsize(filePaths(i))
                         Label2.Text = "Status: Changed"
                         Label2.ForeColor = Color.Blue
                         Label1.Text = "Total items to copy: " & ListBox1.Items.Count
@@ -292,26 +392,7 @@ Public Class Form1
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Try
-            Dim data As IDataObject = Clipboard.GetDataObject
-            If data.GetDataPresent(DataFormats.FileDrop) Then
-                Dim filePaths As String() = CType(data.GetData(DataFormats.FileDrop), String())
-                For i As Integer = 0 To filePaths.Count - 1
-                    If ListBox1.Items.Contains(filePaths(i)) Then
-                        Continue For
-                    End If
-                    If Directory.Exists(filePaths(i)) Then
-                        ListBox1.Items.Add(filePaths(i))
-                        Label2.Text = "Status: Changed"
-                        Label2.ForeColor = Color.Blue
-                        Label1.Text = "Total items to copy: " & ListBox1.Items.Count
-                    ElseIf File.Exists(filePaths(i)) Then
-                        ListBox1.Items.Add(filePaths(i))
-                        Label2.Text = "Status: Changed"
-                        Label2.ForeColor = Color.Blue
-                        Label1.Text = "Total items to copy: " & ListBox1.Items.Count
-                    End If
-                Next
-            End If
+            PasteClipboardToolStripMenuItem.PerformClick()
         Catch
         End Try
     End Sub
@@ -370,5 +451,18 @@ Public Class Form1
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
+    End Sub
+
+    Private Sub AutomaticCheckSizeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AutomaticCheckSizeToolStripMenuItem.Click
+        AutomaticCheckSizeToolStripMenuItem.Checked = Not AutomaticCheckSizeToolStripMenuItem.Checked
+        If AutomaticCheckSizeToolStripMenuItem.Checked = True Then
+            manualgetsize()
+        End If
+    End Sub
+
+    Private Sub checksizemanual_Click(sender As Object, e As EventArgs) Handles checksizemanual.Click
+        If ListBox1.Items.Count <> 0 Then
+            manualgetsize()
+        End If
     End Sub
 End Class

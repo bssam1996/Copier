@@ -33,6 +33,7 @@ Partial Class Form1
         Me.PasteClipboardToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckForUpdatesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EndToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -46,7 +47,9 @@ Partial Class Form1
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.checkclipboard = New System.Windows.Forms.CheckBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.AutomaticCheckSizeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.checksizemanual = New System.Windows.Forms.Button()
         Me.ContextMenuStrip2.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -111,7 +114,7 @@ Partial Class Form1
         'Button1
         '
         Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(15, 308)
+        Me.Button1.Location = New System.Drawing.Point(15, 310)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 1
@@ -120,9 +123,15 @@ Partial Class Form1
         '
         'ContextMenuStrip1
         '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem, Me.CheckForUpdatesToolStripMenuItem, Me.AboutToolStripMenuItem, Me.EndToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AutomaticCheckSizeToolStripMenuItem, Me.AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem, Me.CheckForUpdatesToolStripMenuItem, Me.AboutToolStripMenuItem, Me.EndToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.Size = New System.Drawing.Size(344, 114)
+        '
+        'AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem
+        '
+        Me.AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Name = "AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem"
+        Me.AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Size = New System.Drawing.Size(343, 22)
+        Me.AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Text = "Add Copier to right click context menu of windows"
         '
         'CheckForUpdatesToolStripMenuItem
         '
@@ -149,7 +158,7 @@ Partial Class Form1
         '
         Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 358)
+        Me.Label1.Location = New System.Drawing.Point(12, 360)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(111, 13)
         Me.Label1.TabIndex = 4
@@ -159,7 +168,7 @@ Partial Class Form1
         '
         Me.Label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(163, 358)
+        Me.Label2.Location = New System.Drawing.Point(163, 360)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(62, 13)
         Me.Label2.TabIndex = 5
@@ -169,7 +178,7 @@ Partial Class Form1
         '
         Me.alwaysontopcheck.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.alwaysontopcheck.AutoSize = True
-        Me.alwaysontopcheck.Location = New System.Drawing.Point(15, 337)
+        Me.alwaysontopcheck.Location = New System.Drawing.Point(15, 339)
         Me.alwaysontopcheck.Name = "alwaysontopcheck"
         Me.alwaysontopcheck.Size = New System.Drawing.Size(94, 17)
         Me.alwaysontopcheck.TabIndex = 6
@@ -179,7 +188,7 @@ Partial Class Form1
         'TrackBar1
         '
         Me.TrackBar1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TrackBar1.Location = New System.Drawing.Point(336, 313)
+        Me.TrackBar1.Location = New System.Drawing.Point(336, 315)
         Me.TrackBar1.Maximum = 100
         Me.TrackBar1.Minimum = 20
         Me.TrackBar1.Name = "TrackBar1"
@@ -191,7 +200,7 @@ Partial Class Form1
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(253, 325)
+        Me.Label3.Location = New System.Drawing.Point(253, 327)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(77, 13)
         Me.Label3.TabIndex = 8
@@ -201,7 +210,7 @@ Partial Class Form1
         '
         Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(374, 358)
+        Me.Label4.Location = New System.Drawing.Point(374, 360)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(25, 13)
         Me.Label4.TabIndex = 9
@@ -221,7 +230,7 @@ Partial Class Form1
         '
         Me.checkclipboard.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.checkclipboard.AutoSize = True
-        Me.checkclipboard.Location = New System.Drawing.Point(117, 337)
+        Me.checkclipboard.Location = New System.Drawing.Point(117, 339)
         Me.checkclipboard.Name = "checkclipboard"
         Me.checkclipboard.Size = New System.Drawing.Size(130, 17)
         Me.checkclipboard.TabIndex = 10
@@ -232,19 +241,40 @@ Partial Class Form1
         '
         Me.Timer1.Interval = 200
         '
-        'AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem
+        'Label5
         '
-        Me.AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Name = "AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem"
-        Me.AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Size = New System.Drawing.Size(343, 22)
-        Me.AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Text = "Add Copier to right click context menu of windows"
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(12, 380)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(66, 13)
+        Me.Label5.TabIndex = 11
+        Me.Label5.Text = "Total Size: 0"
+        '
+        'AutomaticCheckSizeToolStripMenuItem
+        '
+        Me.AutomaticCheckSizeToolStripMenuItem.Name = "AutomaticCheckSizeToolStripMenuItem"
+        Me.AutomaticCheckSizeToolStripMenuItem.Size = New System.Drawing.Size(343, 22)
+        Me.AutomaticCheckSizeToolStripMenuItem.Text = "Automatic Check Size"
+        '
+        'checksizemanual
+        '
+        Me.checksizemanual.Location = New System.Drawing.Point(255, 375)
+        Me.checksizemanual.Name = "checksizemanual"
+        Me.checksizemanual.Size = New System.Drawing.Size(75, 23)
+        Me.checksizemanual.TabIndex = 12
+        Me.checksizemanual.Text = "Check Size"
+        Me.checksizemanual.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.SkyBlue
-        Me.ClientSize = New System.Drawing.Size(452, 380)
+        Me.ClientSize = New System.Drawing.Size(452, 402)
         Me.ContextMenuStrip = Me.ContextMenuStrip1
+        Me.Controls.Add(Me.checksizemanual)
+        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.checkclipboard)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
@@ -289,4 +319,7 @@ Partial Class Form1
     Friend WithEvents checkclipboard As CheckBox
     Friend WithEvents Timer1 As Timer
     Friend WithEvents AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Label5 As Label
+    Friend WithEvents AutomaticCheckSizeToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents checksizemanual As Button
 End Class

@@ -921,7 +921,9 @@ Basically, you just drag the files/folders into the program and create your list
 You can save your list and import it later on.</value>
   </data>
   <data name="TextBox2.Text" xml:space="preserve">
-    <value>V1.4:-
+    <value>V1.5:-
+- Added total size while copying (Automatic / Manual)
+V1.4:-
 - Fixed a bug with checking for updates
 - Automatically unchecking auto check clipboard when deleting or clearing the list
 - Fixed a bug with not updating total items to copy when pasting from clipboard
