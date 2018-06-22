@@ -110,7 +110,7 @@ Public Class Form1
                         MsgBox("Duplicated items are not allowed!" & vbNewLine & "Item is " & filePaths(i), MsgBoxStyle.Critical, "Duplicated item")
                         Continue For
                     End If
-                    If Directory.Exists(filePaths(i)) Or File.Exists(File.Exists(filePaths(i))) Then
+                    If Directory.Exists(filePaths(i)) Or File.Exists(filePaths(i)) Then
                         ListBox1.Items.Add(filePaths(i))
                         getsize(filePaths(i))
                     End If
@@ -282,6 +282,7 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+            System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = False
             Me.Text = "Copier V" + Application.ProductVersion
             If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Copier") Is Nothing Then
                 Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\", True).CreateSubKey("Copier")
@@ -401,6 +402,12 @@ Public Class Form1
         Try
             If AddCopierToRightClickContextMenuOfWindowsToolStripMenuItem.Text.Contains("Add") Then
                 'For Windows explorer
+                If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory") Is Nothing Then
+                    Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\", True).CreateSubKey("directory")
+                End If
+                If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\Background") Is Nothing Then
+                    Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\", True).CreateSubKey("Background")
+                End If
                 If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\Background\shell") Is Nothing Then
                     Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Classes\directory\Background\", True).CreateSubKey("shell")
                 End If
@@ -462,7 +469,8 @@ Public Class Form1
 
     Private Sub checksizemanual_Click(sender As Object, e As EventArgs) Handles checksizemanual.Click
         If ListBox1.Items.Count <> 0 Then
-            manualgetsize()
+            Dim gettingsize As System.Threading.Thread = New System.Threading.Thread(AddressOf manualgetsize)
+            gettingsize.Start()
         End If
     End Sub
 End Class
