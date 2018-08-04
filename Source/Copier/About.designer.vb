@@ -126,9 +126,9 @@ Partial Class About
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(8, 16)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(156, 16)
+        Me.Label1.Size = New System.Drawing.Size(202, 16)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Program Name : Copier"
+        Me.Label1.Text = "Program Name : B++ -Copier-"
         '
         'Label5
         '

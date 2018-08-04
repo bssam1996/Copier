@@ -921,7 +921,7 @@ Basically, you just drag the files/folders into the program and create your list
 You can save your list and import it later on.</value>
   </data>
   <data name="TextBox2.Text" xml:space="preserve">
-    <value>V1.7:-
+    <value>V2.0:-
 - Changed the design and UI of Copier.
 - Added tooltip for most of UI controls.
 V1.6:-
@@ -937,6 +937,7 @@ V1.4:-
 V1.3:-
 - Fixed access denied for standard users when updating.
 - Improved Checking for updates
+- Combined with B++ Company
 V1.2:-
 - Added paste method with Control + V or right click on the list and paste
 - Added Autocatch clipboard

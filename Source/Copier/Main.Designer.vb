@@ -336,9 +336,9 @@ Partial Class Main
         Me.TitleLabel.ForeColor = System.Drawing.SystemColors.ControlLight
         Me.TitleLabel.Location = New System.Drawing.Point(46, 9)
         Me.TitleLabel.Name = "TitleLabel"
-        Me.TitleLabel.Size = New System.Drawing.Size(51, 16)
+        Me.TitleLabel.Size = New System.Drawing.Size(89, 16)
         Me.TitleLabel.TabIndex = 0
-        Me.TitleLabel.Text = "Copier"
+        Me.TitleLabel.Text = "B++ -Copier-"
         '
         'CopierIcon
         '

@@ -326,7 +326,7 @@ Public Class Main
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = False
-            Me.TitleLabel.Text = "Copier V" + Application.ProductVersion
+            Me.TitleLabel.Text = "B++ -Copier- V" + Application.ProductVersion
             If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Copier") Is Nothing Then
                 Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\", True).CreateSubKey("Copier")
                 My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Copier", "", """" & Application.ExecutablePath & """")
@@ -524,4 +524,5 @@ Public Class Main
             MsgBox("There was an error occured" & vbNewLine & "Details :" & vbNewLine & ex.Message, MsgBoxStyle.Critical, "Error")
         End Try
     End Sub
+
 End Class
