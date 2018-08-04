@@ -9,11 +9,11 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("Copier")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
+<Assembly: AssemblyDescription("Copier allows you to manage copying process for you and ease things.")>
+<Assembly: AssemblyCompany("B++ -Programming Cooperation-")>
 <Assembly: AssemblyProduct("Copier")>
 <Assembly: AssemblyCopyright("Copyright ©  2018. All Rights Reserved.")>
-<Assembly: AssemblyTrademark("pşƔçħǫ-Hũnţẽř")>
+<Assembly: AssemblyTrademark("B++")>
 
 <Assembly: ComVisible(False)>
 
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("1.6.0.0")>
-<Assembly: AssemblyFileVersion("1.6.0.0")>
+<Assembly: AssemblyVersion("1.7.0.0")>
+<Assembly: AssemblyFileVersion("1.7.0.0")>

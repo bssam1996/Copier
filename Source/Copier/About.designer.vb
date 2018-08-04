@@ -136,9 +136,9 @@ Partial Class About
         Me.Label5.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.Location = New System.Drawing.Point(121, 16)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(217, 18)
+        Me.Label5.Size = New System.Drawing.Size(225, 18)
         Me.Label5.TabIndex = 0
-        Me.Label5.Text = "Microsoft Visual Basic 2017"
+        Me.Label5.Text = "Microsoft Visual Studio 2017"
         '
         'GroupBox2
         '

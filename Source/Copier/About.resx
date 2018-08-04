@@ -921,7 +921,10 @@ Basically, you just drag the files/folders into the program and create your list
 You can save your list and import it later on.</value>
   </data>
   <data name="TextBox2.Text" xml:space="preserve">
-    <value>V1.6:-
+    <value>V1.7:-
+- Changed the design and UI of Copier.
+- Added tooltip for most of UI controls.
+V1.6:-
 - Fixed a bug with adding to registry.
 - Fixed a bug with drag and drop files
 V1.5:-
