@@ -5,6 +5,7 @@ Public Class Main
     Dim mousey As Integer
     Public abort As Boolean
     Dim d As Double = 0
+    Dim lastname As String = ""
     Function GetFolderSize(ByVal DirPath As String, ByVal includeSubFolders As Boolean) As Long
         Try
             Dim size As Long = 0
@@ -102,24 +103,35 @@ Public Class Main
             TotalSizeLabel.Text = "Total Size: " & b
         End If
     End Sub
-    Private Sub TopPanel1_MouseDown(sender As Object, e As MouseEventArgs) Handles TopPanel1.MouseDown, StatusLabel.MouseDown
+    Private Sub TopPanel1_MouseDown(sender As Object, e As MouseEventArgs) Handles TopPanel1.MouseDown, StatusLabel.MouseDown, TitleLabel.MouseDown
         drag = True
         mousex = Windows.Forms.Cursor.Position.X - Me.Left
         mousey = Windows.Forms.Cursor.Position.Y - Me.Top
     End Sub
 
-    Private Sub TopPanel1_MouseMove(sender As Object, e As MouseEventArgs) Handles TopPanel1.MouseMove, StatusLabel.MouseMove
+    Private Sub TopPanel1_MouseMove(sender As Object, e As MouseEventArgs) Handles TopPanel1.MouseMove, StatusLabel.MouseMove, TitleLabel.MouseMove
         If drag Then
             Me.Top = Windows.Forms.Cursor.Position.Y - mousey
             Me.Left = Windows.Forms.Cursor.Position.X - mousex
         End If
     End Sub
 
-    Private Sub TopPanel1_MouseUp(sender As Object, e As MouseEventArgs) Handles TopPanel1.MouseUp, StatusLabel.MouseUp
+    Private Sub TopPanel1_MouseUp(sender As Object, e As MouseEventArgs) Handles TopPanel1.MouseUp, StatusLabel.MouseUp, TitleLabel.MouseUp
         drag = False
     End Sub
 
     Private Sub EndButton_Click(sender As Object, e As EventArgs) Handles EndButton.Click
+        Try
+            If Directory.Exists(Application.StartupPath + "\History") = False Then
+                Directory.CreateDirectory(Application.StartupPath + "\History")
+            End If
+            Dim myWriter As New IO.StreamWriter(Application.StartupPath + "\History\LastList.txt")
+            For i As Integer = 0 To ItemsList.Items.Count - 1
+                myWriter.WriteLine(ItemsList.Items(i).ToString)
+            Next
+            myWriter.Close()
+        Catch
+        End Try
         End
     End Sub
 
@@ -139,21 +151,21 @@ Public Class Main
     Private Sub MenuButton_Click(sender As Object, e As EventArgs) Handles MenuButton.Click
         If OptionPanel1.Width = 200 Then
             While OptionPanel1.Width > 50
-                OptionPanel1.Width -= 2
-                MenuButton.Location = New Point(MenuButton.Location.X - 2, MenuButton.Location.Y)
-                ItemsList.Location = New Point(ItemsList.Location.X - 2, ItemsList.Location.Y)
-                TotalItemsLabel.Location = New Point(TotalItemsLabel.Location.X - 2, TotalItemsLabel.Location.Y)
-                ItemsList.Width = ItemsList.Width + 2
-                System.Threading.Thread.Sleep(2)
+                OptionPanel1.Width -= 5
+                MenuButton.Location = New Point(MenuButton.Location.X - 5, MenuButton.Location.Y)
+                ItemsList.Location = New Point(ItemsList.Location.X - 5, ItemsList.Location.Y)
+                TotalItemsLabel.Location = New Point(TotalItemsLabel.Location.X - 5, TotalItemsLabel.Location.Y)
+                ItemsList.Width = ItemsList.Width + 5
+                System.Threading.Thread.Sleep(1)
             End While
         Else
             While OptionPanel1.Width < 200
-                OptionPanel1.Width += 2
-                MenuButton.Location = New Point(MenuButton.Location.X + 2, MenuButton.Location.Y)
-                ItemsList.Location = New Point(ItemsList.Location.X + 2, ItemsList.Location.Y)
-                TotalItemsLabel.Location = New Point(TotalItemsLabel.Location.X + 2, TotalItemsLabel.Location.Y)
-                ItemsList.Width = ItemsList.Width - 2
-                System.Threading.Thread.Sleep(2)
+                OptionPanel1.Width += 5
+                MenuButton.Location = New Point(MenuButton.Location.X + 5, MenuButton.Location.Y)
+                ItemsList.Location = New Point(ItemsList.Location.X + 5, ItemsList.Location.Y)
+                TotalItemsLabel.Location = New Point(TotalItemsLabel.Location.X + 5, TotalItemsLabel.Location.Y)
+                ItemsList.Width = ItemsList.Width - 5
+                System.Threading.Thread.Sleep(1)
             End While
         End If
     End Sub
@@ -265,14 +277,14 @@ Public Class Main
             MsgBox(ex.Message)
         End Try
     End Sub
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+    Private Sub CheckClipboardTimer_Tick(sender As Object, e As EventArgs) Handles CheckClipboardTimer.Tick
         Try
             PasteClipboardToolStripMenuItem.PerformClick()
         Catch
         End Try
     End Sub
     Private Sub checkclipboard_CheckedChanged(sender As Object, e As EventArgs) Handles checkclipboard.CheckedChanged
-        Timer1.Enabled = checkclipboard.Checked
+        CheckClipboardTimer.Enabled = checkclipboard.Checked
     End Sub
     Private Sub PasteClipboardToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasteClipboardToolStripMenuItem.Click
         Try
@@ -380,23 +392,34 @@ Public Class Main
         Catch
         End Try
     End Sub
+    Public Sub importlist(ByVal l As String)
+        Try
+            Dim lines() As String = IO.File.ReadAllLines(l)
+            Dim fault As String = ""
+            For i As Integer = 0 To lines.Count - 1
+                If Directory.Exists(lines(i)) Or File.Exists(lines(i)) Then
+                    If ItemsList.Items.Contains(lines(i)) Then
+                        Continue For
+                    End If
+                    ItemsList.Items.Add(lines(i))
+                    getsize(lines(i))
+                Else
+                    fault &= "- " & lines(i) & vbNewLine
+                End If
+            Next
+            If fault <> "" Then
+                MsgBox("These files/folders couldn't be found:-" & vbNewLine & fault, MsgBoxStyle.Exclamation, "Importing error")
+            End If
+            TotalItemsLabel.Text = "Total items to copy: " & ItemsList.Items.Count
+        Catch ex As Exception
+            MsgBox("There was an error occured while saving" & vbNewLine & "Details :" & vbNewLine & ex.Message, MsgBoxStyle.Critical, "Error")
+        End Try
+    End Sub
     Private Sub ImportListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ImportListToolStripMenuItem.Click
         Try
             If OpenFileDialog1.ShowDialog = DialogResult.OK Then
-                Dim lines() As String = IO.File.ReadAllLines(OpenFileDialog1.FileName)
-                Dim fault As String = ""
-                For i As Integer = 0 To lines.Count - 1
-                    If Directory.Exists(lines(i)) Or File.Exists(lines(i)) Then
-                        ItemsList.Items.Add(lines(i))
-                        getsize(lines(i))
-                    Else
-                        fault &= "- " & lines(i) & vbNewLine
-                    End If
-                Next
-                If fault <> "" Then
-                    MsgBox("These files/folders couldn't be found:-" & vbNewLine & fault, MsgBoxStyle.Exclamation, "Importing error")
-                End If
-                TotalItemsLabel.Text = "Total items to copy: " & ItemsList.Items.Count
+                importlist(OpenFileDialog1.FileName)
+                lastname = OpenFileDialog1.SafeFileName
             End If
         Catch ex As Exception
             MsgBox("There was an error occured while saving" & vbNewLine & "Details :" & vbNewLine & ex.Message, MsgBoxStyle.Critical, "Error")
@@ -405,6 +428,9 @@ Public Class Main
 
     Private Sub ExportListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportListToolStripMenuItem.Click
         Try
+            If lastname <> "" Then
+                SaveFileDialog1.FileName = lastname
+            End If
             If SaveFileDialog1.ShowDialog = DialogResult.OK Then
                 Dim myWriter As New IO.StreamWriter(SaveFileDialog1.FileName)
                 For i As Integer = 0 To ItemsList.Items.Count - 1
@@ -445,6 +471,7 @@ Public Class Main
             ExportListToolStripMenuItem.Enabled = (ItemsList.Items.Count <> 0)
             DeleteThisItemToolStripMenuItem.Enabled = (ItemsList.SelectedItems.Count <> 0)
             PasteClipboardToolStripMenuItem.Enabled = (Clipboard.GetDataObject.GetDataPresent(DataFormats.FileDrop))
+            GetLastListToolStripMenuItem.Enabled = File.Exists(Application.StartupPath + "\History\LastList.txt")
         Catch
         End Try
     End Sub
@@ -525,4 +552,13 @@ Public Class Main
         End Try
     End Sub
 
+    Private Sub GetLastListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GetLastListToolStripMenuItem.Click
+        Try
+            If File.Exists(Application.StartupPath + "\History\LastList.txt") Then
+                importlist(Application.StartupPath + "\History\LastList.txt")
+            End If
+        Catch ex As Exception
+            MsgBox("There was an error occured" & vbNewLine & "Details :" & vbNewLine & ex.Message, MsgBoxStyle.Critical, "Error")
+        End Try
+    End Sub
 End Class

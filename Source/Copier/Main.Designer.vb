@@ -31,6 +31,11 @@ Partial Class Main
         Me.CheckForUpdatesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EndToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.TotalSizeLabel = New System.Windows.Forms.Label()
         Me.checksizemanual = New System.Windows.Forms.Button()
         Me.TransparencyLevel = New System.Windows.Forms.Label()
@@ -54,16 +59,12 @@ Partial Class Main
         Me.ExportListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ImportListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PasteClipboardToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GetLastListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.CheckClipboardTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TotalItemsLabel = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.OptionPanel1.SuspendLayout()
         Me.MainContextMenuStrip.SuspendLayout()
         CType(Me.TansparencyTrackBar, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -139,6 +140,46 @@ Partial Class Main
         Me.EndToolStripMenuItem.Size = New System.Drawing.Size(343, 22)
         Me.EndToolStripMenuItem.Text = "End"
         '
+        'Label5
+        '
+        Me.Label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Label5.Location = New System.Drawing.Point(0, 324)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(200, 2)
+        Me.Label5.TabIndex = 16
+        '
+        'Label4
+        '
+        Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Label4.Location = New System.Drawing.Point(0, 212)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(200, 2)
+        Me.Label4.TabIndex = 15
+        '
+        'Label3
+        '
+        Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Label3.Location = New System.Drawing.Point(3, 160)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(200, 2)
+        Me.Label3.TabIndex = 14
+        '
+        'Label2
+        '
+        Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Label2.Location = New System.Drawing.Point(3, 117)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(200, 2)
+        Me.Label2.TabIndex = 13
+        '
+        'Label1
+        '
+        Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Label1.Location = New System.Drawing.Point(-3, 76)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(200, 2)
+        Me.Label1.TabIndex = 12
+        '
         'TotalSizeLabel
         '
         Me.TotalSizeLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -166,6 +207,7 @@ Partial Class Main
         Me.checksizemanual.Size = New System.Drawing.Size(194, 33)
         Me.checksizemanual.TabIndex = 11
         Me.checksizemanual.Text = "Check Size"
+        Me.checksizemanual.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.checksizemanual.UseVisualStyleBackColor = True
         '
         'TransparencyLevel
@@ -204,14 +246,13 @@ Partial Class Main
         '
         'checkclipboard
         '
-        Me.checkclipboard.AutoSize = True
         Me.checkclipboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.checkclipboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.checkclipboard.Font = New System.Drawing.Font("Century Gothic", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.checkclipboard.ForeColor = System.Drawing.SystemColors.ActiveCaption
         Me.checkclipboard.Location = New System.Drawing.Point(8, 130)
         Me.checkclipboard.Name = "checkclipboard"
-        Me.checkclipboard.Size = New System.Drawing.Size(160, 20)
+        Me.checkclipboard.Size = New System.Drawing.Size(176, 20)
         Me.checkclipboard.TabIndex = 4
         Me.checkclipboard.Text = "Clipboard Auto-Check"
         Me.ToolTip1.SetToolTip(Me.checkclipboard, "Check if any item is copied and put it in the list (Ctrl + C)")
@@ -219,14 +260,13 @@ Partial Class Main
         '
         'alwaysontopcheck
         '
-        Me.alwaysontopcheck.AutoSize = True
         Me.alwaysontopcheck.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.alwaysontopcheck.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.alwaysontopcheck.Font = New System.Drawing.Font("Century Gothic", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.alwaysontopcheck.ForeColor = System.Drawing.SystemColors.ActiveCaption
         Me.alwaysontopcheck.Location = New System.Drawing.Point(8, 87)
         Me.alwaysontopcheck.Name = "alwaysontopcheck"
-        Me.alwaysontopcheck.Size = New System.Drawing.Size(93, 20)
+        Me.alwaysontopcheck.Size = New System.Drawing.Size(176, 20)
         Me.alwaysontopcheck.TabIndex = 3
         Me.alwaysontopcheck.Text = "Top always"
         Me.ToolTip1.SetToolTip(Me.alwaysontopcheck, "Always in the front")
@@ -247,6 +287,7 @@ Partial Class Main
         Me.CopyButton.Size = New System.Drawing.Size(197, 33)
         Me.CopyButton.TabIndex = 2
         Me.CopyButton.Text = "Copy"
+        Me.CopyButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.ToolTip1.SetToolTip(Me.CopyButton, "Click to add items to clipboard")
         Me.CopyButton.UseVisualStyleBackColor = True
         '
@@ -254,7 +295,7 @@ Partial Class Main
         '
         Me.MenuButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.MenuButton.Image = CType(resources.GetObject("MenuButton.Image"), System.Drawing.Image)
-        Me.MenuButton.Location = New System.Drawing.Point(159, 6)
+        Me.MenuButton.Location = New System.Drawing.Point(168, 5)
         Me.MenuButton.Name = "MenuButton"
         Me.MenuButton.Size = New System.Drawing.Size(25, 25)
         Me.MenuButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -372,9 +413,9 @@ Partial Class Main
         '
         'ListContextMenuStrip
         '
-        Me.ListContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DeleteThisItemToolStripMenuItem, Me.ClearAllToolStripMenuItem, Me.ExportListToolStripMenuItem, Me.ImportListToolStripMenuItem, Me.PasteClipboardToolStripMenuItem})
+        Me.ListContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DeleteThisItemToolStripMenuItem, Me.ClearAllToolStripMenuItem, Me.ExportListToolStripMenuItem, Me.ImportListToolStripMenuItem, Me.PasteClipboardToolStripMenuItem, Me.GetLastListToolStripMenuItem})
         Me.ListContextMenuStrip.Name = "ContextMenuStrip2"
-        Me.ListContextMenuStrip.Size = New System.Drawing.Size(169, 114)
+        Me.ListContextMenuStrip.Size = New System.Drawing.Size(169, 136)
         '
         'DeleteThisItemToolStripMenuItem
         '
@@ -411,6 +452,13 @@ Partial Class Main
         Me.PasteClipboardToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.PasteClipboardToolStripMenuItem.Text = "Paste Clipboard"
         '
+        'GetLastListToolStripMenuItem
+        '
+        Me.GetLastListToolStripMenuItem.Image = CType(resources.GetObject("GetLastListToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.GetLastListToolStripMenuItem.Name = "GetLastListToolStripMenuItem"
+        Me.GetLastListToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
+        Me.GetLastListToolStripMenuItem.Text = "Get last list"
+        '
         'SaveFileDialog1
         '
         Me.SaveFileDialog1.FileName = "Copier"
@@ -421,9 +469,9 @@ Partial Class Main
         '
         Me.OpenFileDialog1.Filter = "Text File (*.txt)|*.txt"
         '
-        'Timer1
+        'CheckClipboardTimer
         '
-        Me.Timer1.Interval = 200
+        Me.CheckClipboardTimer.Interval = 200
         '
         'ToolTip1
         '
@@ -444,46 +492,6 @@ Partial Class Main
         Me.TotalItemsLabel.Size = New System.Drawing.Size(132, 16)
         Me.TotalItemsLabel.TabIndex = 10
         Me.TotalItemsLabel.Text = "Total items to copy: 0"
-        '
-        'Label1
-        '
-        Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Label1.Location = New System.Drawing.Point(-3, 76)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(200, 2)
-        Me.Label1.TabIndex = 12
-        '
-        'Label2
-        '
-        Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Label2.Location = New System.Drawing.Point(3, 117)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(200, 2)
-        Me.Label2.TabIndex = 13
-        '
-        'Label3
-        '
-        Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Label3.Location = New System.Drawing.Point(3, 160)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(200, 2)
-        Me.Label3.TabIndex = 14
-        '
-        'Label4
-        '
-        Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Label4.Location = New System.Drawing.Point(0, 212)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(200, 2)
-        Me.Label4.TabIndex = 15
-        '
-        'Label5
-        '
-        Me.Label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Label5.Location = New System.Drawing.Point(0, 324)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(200, 2)
-        Me.Label5.TabIndex = 16
         '
         'Main
         '
@@ -541,7 +549,7 @@ Partial Class Main
     Friend WithEvents EndToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
-    Friend WithEvents Timer1 As Timer
+    Friend WithEvents CheckClipboardTimer As Timer
     Friend WithEvents CopyButton As Button
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents alwaysontopcheck As CheckBox
@@ -558,4 +566,5 @@ Partial Class Main
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents GetLastListToolStripMenuItem As ToolStripMenuItem
 End Class
